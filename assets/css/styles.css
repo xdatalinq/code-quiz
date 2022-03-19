@@ -1,16 +1,7 @@
 header {
-    padding: 15px 50px 15px 0;
-    background-color: #421724;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: 100%;
-    z-index: 9999;
 }
 
 header a {
@@ -42,6 +33,10 @@ body button {
 
 #question-choice button {
     display: block
+}
+
+.end-container {
+    display: none
 }
 
 footer {

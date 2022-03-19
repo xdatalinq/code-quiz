@@ -1,11 +1,14 @@
 // Global variables
+var currentIndex = 0;
 var timeLeft = 75;
 var score = 0;
+var initials = "";
 var startButtonEl = document.querySelector(".startButton");
 var timerEl = document.querySelector("#timer");
+var questionsEl = document.querySelector("#questions");
 var questionChoiceEl = document.querySelector("#question-choice");
 var centerContainerEl = document.querySelector(".center-container");
-var currentIndex = 0;
+var endContainerEl = document.querySelector(".end-container");
 
 const questions = [
     {
@@ -46,7 +49,7 @@ function timerStart() {
     centerContainerEl.style.display = "none"; 
     getQuestion(0);
     var countDownTimer = setInterval(function() {
-        if(timeLeft <= 0){
+        if (timeLeft <= 0 || currentIndex === 5){
             clearInterval(countDownTimer);
             document.getElementById("timer").textContent = "Finished!";
             endGame();
@@ -59,16 +62,20 @@ function timerStart() {
 
 // Function that pulls questions
 function getQuestion(index) {
-    document.querySelector("#question-text").textContent = questions[index].question
-    questionChoiceEl.innerHTML = "";
-    for (var i = 0; i < questions[index].choices.length; i++) {
-        var choice = document.createElement("button");
-        choice.setAttribute("class", "option-button");
-        choice.setAttribute("value", questions[index].choices[i]);
-        choice.textContent = questions[index].choices[i];
-        choice.onclick = checkAnswer;
-        questionChoiceEl.appendChild(choice); 
-    };
+    if(timeLeft > 0) {
+        document.querySelector("#question-text").textContent = questions[index].question
+        questionChoiceEl.innerHTML = "";
+        for (var i = 0; i < questions[index].choices.length; i++) {
+            var choice = document.createElement("button");
+            choice.setAttribute("class", "option-button");
+            choice.setAttribute("value", questions[index].choices[i]);
+            choice.textContent = questions[index].choices[i];
+            choice.onclick = checkAnswer;
+            questionChoiceEl.appendChild(choice); 
+            };
+        } else {
+            endGame();
+    }
 };
 
 function checkAnswer() {
@@ -88,66 +95,16 @@ function checkAnswer() {
 };
 
 function endGame() {
-    questionChoiceEl.innerHTML = "";
-    // text "the game has ended, your score: "
-    // input to enter initials
-    // submit button
+    score = timeLeft
+    questionChoiceEl.style.display = "none"
+    questionsEl.innerHTML = ""
+    endContainerEl.style.display = "inherit"
+    
+    
     // validate info entered in input
-    // write score
-}
+  
+};
 
 function viewHighScore() {
     
 };
-// Likely need a function to clean up html before displaying new content to page?
-// Likely need an endGame() function?
-
-// for (var i = 0; i < questions.length; i++) {
-//     document.getElementById("center-container.h3").
-// };
-
-/*
-function getQuestion0() {
-    document.querySelector("#question-text").textContent = questions[0].question
-    for (var i = 0; i < questions[0].choices.length; i++) {
-    
-        var choice = document.createElement("button");
-        choice.setAttribute("class", "option-button");
-        choice.setAttribute("value", questions[0].choices[i]);
-        choice.textContent = questions[0].choices[i];
-        choice.onclick = checkAnswer(0);
-        questionChoiceEl.appendChild(choice);
-    };  
-};
-
-function getQuestion1() {
-    document.querySelector("center-container.h3").textContent = questions[1].question
-    // Add for loop to create a button for each "choices", correct option score +1 and call next getQuestion().
-    // Incorrect option score -1 (floor 0), timer -10, and call getQuestion2().
-    // Submit button
-    // Window prompt saying correct/incorrect.
-};
-
-function getQuestion2() {
-    document.querySelector("center-container.h3").textContent = questions[2].question
-    // Add for loop to create a button for each "choices", correct option score +1 and call next getQuestion().
-    // Incorrect option score -1 (floor 0), timer -10, and call getQuestion3().
-    // Submit button
-    // Window prompt saying correct/incorrect.
-};
-
-function getQuestion3() {
-    document.querySelector("center-container.h3").textContent = questions[3].question
-    // Add for loop to create a button for each "choices", correct option score +1 and call addScore().
-    // Incorrect option score -1 (floor 0), timer -10, and call addScore()
-    // Submit button
-    // Window prompt saying correct/incorrect.
-};
-
-function addScore() {
-    document.querySelector("center-container.h3").textContent = "Congratulations, your score is: " + score;
-    localStorage.setItem("score", JSON.stringify(s));
-    // Add submit button to store the score to localStorage with initials field
-    // trigger viewHighScore();
-};
-*/
