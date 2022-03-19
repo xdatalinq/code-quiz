@@ -1,6 +1,12 @@
 // Global variables
-var timeLeft = 50;
+var timeLeft = 75;
 var score = 0;
+var startButtonEl = document.querySelector(".startButton");
+var timerEl = document.querySelector("#timer");
+var questionChoiceEl = document.querySelector("#question-choice");
+var centerContainerEl = document.querySelector(".center-container");
+var currentIndex = 0;
+
 const questions = [
     {
     question: "Commonly used data types do NOT include:",
@@ -30,37 +36,96 @@ const questions = [
 ];
 
 // Start button, initiates timer and pulls first question
-startButton.addEventListener("click", (getQuestion0(), startTimer()));
+startButtonEl.addEventListener("click", timerStart);
 
-// View scores
-highScoreButton.addEventListener("click", viewHighScore());
+// View scores when button is clicked
+// highScoreButton.addEventListener("click", viewHighScore());
 
 // Countdown Timer
 function timerStart() {
+    centerContainerEl.style.display = "none"; 
+    getQuestion(0);
     var countDownTimer = setInterval(function() {
         if(timeLeft <= 0){
             clearInterval(countDownTimer);
             document.getElementById("timer").textContent = "Finished!";
+            // Possibly queue addScore() here?
         } else {
-            document.getElementById("timer").textContent = "Time: " + timeleft;
+            document.getElementById("timer").textContent = timeLeft;
         }
-        timeLeft -= 1;
+        timeLeft--;
     }, 1000);
 };
 
 // Function that pulls questions
+function getQuestion(index) {
+    document.querySelector("#question-text").textContent = questions[index].question
+    questionChoiceEl.innerHTML = "";
+    for (var i = 0; i < questions[index].choices.length; i++) {
+    
+        var choice = document.createElement("button");
+        choice.setAttribute("class", "option-button");
+        choice.setAttribute("value", questions[index].choices[i]);
+        choice.textContent = questions[index].choices[i];
+        // change global value to index
+        choice.onclick = checkAnswer;
+        questionChoiceEl.appendChild(choice);
+    };
+    currentIndex++;  
+};
+
+
+
+function addScore() {
+    document.querySelector("center-container.h3").textContent = "Congratulations, your score is: " + score;
+    localStorage.setItem("score", JSON.stringify(s));
+    // Add submit button to store the score to localStorage with initials field
+    // trigger viewHighScore();
+};
+
+function viewHighScore() {
+    document.quegetElement("center-container.h3").textContent = ""
+};
+
+function checkAnswer() {
+    console.log(event.target);
+    if(event.target.value != questions[currentIndex].correctChoice) {
+        window.alert("Incorrect answer, 10 seconds deducted");
+        //deduct time here
+    } else {
+        window.alert("Correct!")
+    }
+    getQuestion(currentIndex);
+};
+
+
+
+
+// Likely need a function to clean up html before displaying new content to page?
+// Likely need an endGame() function?
+
+// for (var i = 0; i < questions.length; i++) {
+//     document.getElementById("center-container.h3").
+// };
+
+/*
 function getQuestion0() {
-    document.querySelector("center-container.h3").textContent = questions[0].question
-    // Add for loop to create a button for each "choices", correct option score +1 and call next getQuestion().
-    // Incorrect option score -1 (floor 0), timer -10, and call next getQuestion1().
-    // Submit button
-    // Window prompt saying correct/incorrect.
+    document.querySelector("#question-text").textContent = questions[0].question
+    for (var i = 0; i < questions[0].choices.length; i++) {
+    
+        var choice = document.createElement("button");
+        choice.setAttribute("class", "option-button");
+        choice.setAttribute("value", questions[0].choices[i]);
+        choice.textContent = questions[0].choices[i];
+        choice.onclick = checkAnswer(0);
+        questionChoiceEl.appendChild(choice);
+    };  
 };
 
 function getQuestion1() {
     document.querySelector("center-container.h3").textContent = questions[1].question
     // Add for loop to create a button for each "choices", correct option score +1 and call next getQuestion().
-    // Incorrect option score -1 (floor 0), timer -10, and call next getQuestion2().
+    // Incorrect option score -1 (floor 0), timer -10, and call getQuestion2().
     // Submit button
     // Window prompt saying correct/incorrect.
 };
@@ -68,7 +133,7 @@ function getQuestion1() {
 function getQuestion2() {
     document.querySelector("center-container.h3").textContent = questions[2].question
     // Add for loop to create a button for each "choices", correct option score +1 and call next getQuestion().
-    // Incorrect option score -1 (floor 0), timer -10, and call next getQuestion3().
+    // Incorrect option score -1 (floor 0), timer -10, and call getQuestion3().
     // Submit button
     // Window prompt saying correct/incorrect.
 };
@@ -80,19 +145,4 @@ function getQuestion3() {
     // Submit button
     // Window prompt saying correct/incorrect.
 };
-
-function addScore() {
-    document.querySelector("center-container.h3").textContent = "Congratulations, your score is: " + score
-    // Add submit button to store the score to localStorage with initials field
-    // trigger viewHighScore();
-};
-
-function viewHighScore() {
-    document.querySelector("center-container.h3").textContent =
-};
-
-
-
-// for (var i = 0; i < questions.length; i++) {
-//     document.getElementById("center-container.h3").
-// };
+*/
