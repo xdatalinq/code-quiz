@@ -1,0 +1,46 @@
+header {
+    padding: 15px 50px 15px 0;
+    background-color: #421724;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 100%;
+    z-index: 9999;
+}
+
+header a {
+    justify-content: left;
+}
+
+header p {
+    justify-content: right;
+}
+
+body {
+    background-color: #4b3d41;
+}
+body h1 {
+   text-align: center;
+}
+
+body h3 {
+    text-align: center;
+ }
+ 
+body button {
+    text-align: center;
+}
+
+
+footer {
+    position : absolute;
+    bottom : 0;
+    height : 40px;
+    margin-top : 40px;
+    left: 50%;
+}
