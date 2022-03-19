@@ -49,7 +49,7 @@ function timerStart() {
         if(timeLeft <= 0){
             clearInterval(countDownTimer);
             document.getElementById("timer").textContent = "Finished!";
-            // Possibly queue addScore() here?
+            endGame();
         } else {
             document.getElementById("timer").textContent = timeLeft;
         }
@@ -62,45 +62,43 @@ function getQuestion(index) {
     document.querySelector("#question-text").textContent = questions[index].question
     questionChoiceEl.innerHTML = "";
     for (var i = 0; i < questions[index].choices.length; i++) {
-    
         var choice = document.createElement("button");
         choice.setAttribute("class", "option-button");
         choice.setAttribute("value", questions[index].choices[i]);
         choice.textContent = questions[index].choices[i];
-        // change global value to index
         choice.onclick = checkAnswer;
-        questionChoiceEl.appendChild(choice);
+        questionChoiceEl.appendChild(choice); 
     };
-    currentIndex++;  
-};
-
-
-
-function addScore() {
-    document.querySelector("center-container.h3").textContent = "Congratulations, your score is: " + score;
-    localStorage.setItem("score", JSON.stringify(s));
-    // Add submit button to store the score to localStorage with initials field
-    // trigger viewHighScore();
-};
-
-function viewHighScore() {
-    document.quegetElement("center-container.h3").textContent = ""
 };
 
 function checkAnswer() {
-    console.log(event.target);
     if(event.target.value != questions[currentIndex].correctChoice) {
         window.alert("Incorrect answer, 10 seconds deducted");
-        //deduct time here
+        timeLeft = timeLeft - 10;
     } else {
         window.alert("Correct!")
+        timeLeft = timeLeft + 10;
     }
-    getQuestion(currentIndex);
+    currentIndex++;
+    if (currentIndex <= 4) {
+        getQuestion(currentIndex);
+    } else {
+        endGame();
+    }
 };
 
+function endGame() {
+    questionChoiceEl.innerHTML = "";
+    // text "the game has ended, your score: "
+    // input to enter initials
+    // submit button
+    // validate info entered in input
+    // write score
+}
 
-
-
+function viewHighScore() {
+    
+};
 // Likely need a function to clean up html before displaying new content to page?
 // Likely need an endGame() function?
 
@@ -144,5 +142,12 @@ function getQuestion3() {
     // Incorrect option score -1 (floor 0), timer -10, and call addScore()
     // Submit button
     // Window prompt saying correct/incorrect.
+};
+
+function addScore() {
+    document.querySelector("center-container.h3").textContent = "Congratulations, your score is: " + score;
+    localStorage.setItem("score", JSON.stringify(s));
+    // Add submit button to store the score to localStorage with initials field
+    // trigger viewHighScore();
 };
 */
