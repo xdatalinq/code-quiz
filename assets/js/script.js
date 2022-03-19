@@ -4,7 +4,6 @@ var timeLeft = 75;
 var score = 0;
 var initials = "";
 var startButtonEl = document.querySelector(".startButton");
-var timerEl = document.querySelector("#timer");
 var questionsEl = document.querySelector("#questions");
 var questionChoiceEl = document.querySelector("#question-choice");
 var centerContainerEl = document.querySelector(".center-container");
@@ -40,9 +39,6 @@ const questions = [
 
 // Start button, initiates timer and pulls first question
 startButtonEl.addEventListener("click", timerStart);
-
-// View scores when button is clicked
-// highScoreButton.addEventListener("click", viewHighScore());
 
 // Countdown Timer
 function timerStart() {
@@ -95,16 +91,15 @@ function checkAnswer() {
 };
 
 function endGame() {
-    score = timeLeft
-    questionChoiceEl.style.display = "none"
-    questionsEl.innerHTML = ""
-    endContainerEl.style.display = "inherit"
-    
-    
+    score = timeLeft;
+    questionChoiceEl.style.display = "none";
+    questionsEl.innerHTML = "";
+    endContainerEl.style.display = "inherit";
+    document.getElementById("finalScore").textContent = score;
     // validate info entered in input
-  
+    // save score + input from user to localStorage
 };
 
 function viewHighScore() {
-    
+    //load localStorage
 };
