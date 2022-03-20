@@ -80,7 +80,6 @@ function checkAnswer() {
         timeLeft = timeLeft - 10;
     } else {
         window.alert("Correct!")
-        timeLeft = timeLeft + 10;
     }
     currentIndex++;
     if (currentIndex <= 4) {
@@ -98,6 +97,7 @@ function endGame() {
     document.getElementById("finalScore").textContent = score;
     // validate info entered in input
     // save score + input from user to localStorage
+    
 };
 
 function viewHighScore() {

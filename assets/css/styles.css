@@ -28,11 +28,17 @@ body button {
 }
 
 #questions {
-    align-items: center;
+    text-align: center;
+}
+
+#question-choice {
+    text-align: center;
 }
 
 #question-choice button {
-    display: block
+    text-align: center;
+    display: block;
+    margin: auto;
 }
 
 .end-container {
@@ -40,10 +46,10 @@ body button {
 }
 
 footer {
-    position : absolute;
-    bottom : 0;
-    height : 40px;
-    margin-top : 40px;
-    left: 50%;
+    position: absolute;
+    bottom: 0;
+    height: 40px;
+    margin-top: 40px;
+    left: 46%
 }
 
