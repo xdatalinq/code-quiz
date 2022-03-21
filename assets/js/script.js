@@ -1,7 +1,7 @@
 // Global variables
 var currentIndex = 0;
 var timeLeft = 75;
-var timeBank = 3;
+var timeDelay = 3;
 var score = 0;
 var initials = "";
 var startButtonEl = document.querySelector(".startButton");
@@ -101,20 +101,20 @@ function endGame() {
 
 function waitTimer() {
     var countDownTimer = setInterval(function() {
-        if (timeBank <= 0){
+        if (timeDelay <= 0){
             clearInterval(countDownTimer);
             submitScore();
         } else {
-            console.log(timeBank);
+            console.log(timeDelay);
         }
-        timeBank--;
+        timeDelay--;
     }, 1000);
 };
 
 function submitScore() {
     questionChoiceEl.style.display = "none";
     questionsEl.innerHTML = "";
-    endContainerEl.style.display = "inherit";
+    endContainerEl.style.display = "flex";
     document.getElementById("finalScore").textContent = score;
     // validate info entered in input
     // save score + input from user to localStorage
