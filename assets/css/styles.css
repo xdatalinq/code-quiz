@@ -1,11 +1,22 @@
+:root {
+    --primary-color: rgb(131, 50, 131);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 header {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 18px;
 }
 
 header a {
     justify-content: left;
+    color: var(--primary-color);
 }
 
 header p {
@@ -14,17 +25,48 @@ header p {
 
 body {
     background-color: #4b3d41;
+    font-family: Arial, Helvetica, sans-serif;
 }
 body h1 {
    text-align: center;
+   font-size: 28px;
 }
 
 body h3 {
     text-align: center;
+    font-size: 24px;
+    
  }
  
 body button {
-    text-align: center;
+    background-color: var(--primary-color);
+    color: aliceblue;
+    border-style: none;
+    padding: 15px;
+    font-size: 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 20px 0 20px 0;
+}
+
+#question-feedback {
+    display: none;
+}
+
+#answer-correct {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 24px;
+}
+
+#answer-incorrect {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 24px;
 }
 
 #questions {
@@ -38,7 +80,7 @@ body button {
 #question-choice button {
     text-align: center;
     display: block;
-    margin: auto;
+    margin: 20px;
 }
 
 .end-container {

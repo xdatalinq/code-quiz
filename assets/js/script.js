@@ -1,6 +1,7 @@
 // Global variables
 var currentIndex = 0;
 var timeLeft = 75;
+var timeBank = 3;
 var score = 0;
 var initials = "";
 var startButtonEl = document.querySelector(".startButton");
@@ -8,6 +9,8 @@ var questionsEl = document.querySelector("#questions");
 var questionChoiceEl = document.querySelector("#question-choice");
 var centerContainerEl = document.querySelector(".center-container");
 var endContainerEl = document.querySelector(".end-container");
+var answerIncorrectEl = document.querySelector("#answer-incorrect");
+var answerCorrectEl = document.querySelector("#answer-correct");
 
 const questions = [
     {
@@ -76,10 +79,12 @@ function getQuestion(index) {
 
 function checkAnswer() {
     if(event.target.value != questions[currentIndex].correctChoice) {
-        window.alert("Incorrect answer, 10 seconds deducted");
+        answerIncorrectEl.style.display = "inherit";
+        answerCorrectEl.style.display = "none";
         timeLeft = timeLeft - 10;
     } else {
-        window.alert("Correct!")
+        answerCorrectEl.style.display = "inherit";
+        answerIncorrectEl.style.display = "none";
     }
     currentIndex++;
     if (currentIndex <= 4) {
@@ -91,15 +96,31 @@ function checkAnswer() {
 
 function endGame() {
     score = timeLeft;
+    waitTimer();
+};
+
+function waitTimer() {
+    var countDownTimer = setInterval(function() {
+        if (timeBank <= 0){
+            clearInterval(countDownTimer);
+            submitScore();
+        } else {
+            console.log(timeBank);
+        }
+        timeBank--;
+    }, 1000);
+};
+
+function submitScore() {
     questionChoiceEl.style.display = "none";
     questionsEl.innerHTML = "";
     endContainerEl.style.display = "inherit";
     document.getElementById("finalScore").textContent = score;
     // validate info entered in input
     // save score + input from user to localStorage
-    
-};
+}
 
 function viewHighScore() {
     //load localStorage
 };
+
