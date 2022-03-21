@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="button-container">
-            <a href="URL" class="highScoreBtn">View Highscores</a>
+            <button class="highScoreBtn">View Highscores</button>
         </div>
         <div>
             <p>Time: <span id="timer"></span></p>
@@ -49,16 +49,20 @@
         <h3>
             <p>Please enter your initials below and submit to save your high score!</p><br><br>
             <form>
-                <input type="text" id="initials" name="initials"></input><br></br>
-                <input type="submit" value="Submit"></input></form>
+                <input type="text" id="initials" name="initials" label="Enter Initials"></input><br></br>
+                <input type="submit" id="submit-initials" value="Submit"></input></form>
             </form>
         </h3>
+    </div>
+
+    <div id="view-scores-container">
+        
     </div>
 
     <footer>
         &copy;2022 xDatalinq
     </footer>
-    
+
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

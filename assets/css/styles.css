@@ -121,6 +121,35 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: rgba(46, 6, 46, 0.8);
 }
+
+.view-scores-container {
+    display: none;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+#view-scores-container ol li {
+    text-align: center;
+    font-size: 24px;
+}
+
+.homeButton {
+    background-color: var(--primary-color);
+    color: aliceblue;
+    border-style: none;
+    padding: 15px;
+    font-size: 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 20px 0 20px 0;
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    left: 46.5%;
+    top: 45%;
+}
+
 footer {
     position: absolute;
     bottom: 0;

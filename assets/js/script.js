@@ -3,6 +3,7 @@ var currentIndex = 0;
 var timeLeft = 75;
 var timeDelay = 3;
 var score = 0;
+var highScores = [];
 var initials = "";
 var startButtonEl = document.querySelector(".startButton");
 var questionsEl = document.querySelector("#questions");
@@ -11,6 +12,9 @@ var centerContainerEl = document.querySelector(".center-container");
 var endContainerEl = document.querySelector(".end-container");
 var answerIncorrectEl = document.querySelector("#answer-incorrect");
 var answerCorrectEl = document.querySelector("#answer-correct");
+var viewScoresContainerEl = document.querySelector("#view-scores-container")
+var submitButtonEl = document.querySelector("#submit-initials")
+var highScoreLinkEl = document.querySelector(".highScoreBtn")
 
 const questions = [
     {
@@ -42,6 +46,9 @@ const questions = [
 
 // Start button, initiates timer and pulls first question
 startButtonEl.addEventListener("click", timerStart);
+
+// View high scores link to click to viewHighScores()
+highScoreLinkEl.addEventListener("click", viewHighScore);
 
 // Countdown Timer
 function timerStart() {
@@ -77,7 +84,8 @@ function getQuestion(index) {
     }
 };
 
-function checkAnswer() {
+// Check answers
+function checkAnswer(event) {
     if(event.target.value != questions[currentIndex].correctChoice) {
         answerIncorrectEl.style.display = "inherit";
         answerCorrectEl.style.display = "none";
@@ -94,16 +102,18 @@ function checkAnswer() {
     }
 };
 
+// End game sequence begins
 function endGame() {
     score = timeLeft;
     waitTimer();
 };
 
+// This is a timer to wait 3 seconds before switching sections so users can see last question feedback
 function waitTimer() {
     var countDownTimer = setInterval(function() {
         if (timeDelay <= 0){
             clearInterval(countDownTimer);
-            submitScore();
+            submitScoreSection();
         } else {
             console.log(timeDelay);
         }
@@ -111,16 +121,78 @@ function waitTimer() {
     }, 1000);
 };
 
-function submitScore() {
+// Change to form section
+function submitScoreSection() {
     questionChoiceEl.style.display = "none";
     questionsEl.innerHTML = "";
     endContainerEl.style.display = "flex";
     document.getElementById("finalScore").textContent = score;
-    // validate info entered in input
-    // save score + input from user to localStorage
-}
-
-function viewHighScore() {
-    //load localStorage
+    submitButtonEl.addEventListener("click", submitScore);
 };
 
+// Load the scores into variables
+var loadScores = function () {
+    highScores = localStorage.getItem("score", highScores);
+    highScores = JSON.parse(highScores);
+}
+
+// Turn input value into an object and submit it to localStorage
+function submitScore(event) {
+    event.preventDefault(); 
+    var nameInput = document.querySelector("#initials").value;
+    if (!nameInput) {
+        alert("You must enter your initials");
+    } else {
+        loadScores;
+        var scoreId = highScores.length + 1;
+        var scoreObject = {
+            name: nameInput,
+            score: score,
+            id: scoreId
+        };
+        highScores.push(scoreObject);
+        highScores.sort(function(a,b) {return (b.score - a.score)})
+        localStorage.setItem("score", JSON.stringify(highScores));
+        viewHighScore();
+    }
+};
+
+// Display loaded scores
+function viewHighScore() {
+    console.log(highScores)
+    console.log("clicked")
+    endContainerEl.style.display = "none";
+    centerContainerEl.style.display = "none";
+    viewScoresContainerEl.innerHTML = "";
+    viewScoresContainerEl.style.display = "inherit";
+
+    // Create the home button
+    var homeButtonEl = document.createElement("button");
+    homeButtonEl.className = "homeButton";
+    homeButtonEl.textContent = "Home"
+    document.getElementById("view-scores-container").appendChild(homeButtonEl);
+    homeButtonEl.addEventListener("click", resetHome);
+
+    var tag = document.createElement("h1");
+    var text = document.createTextNode("Name/Score");
+    tag.appendChild(text);
+    var element = document.getElementById("view-scores-container");
+    element.appendChild(tag);
+    
+    var scorelistEl = document.createElement("ol");
+    for (var i = 0; i < Math.min(10, highScores.length); i++) {
+        var scoreItemEl = document.createElement("li");
+        var name = highScores[i].name
+        var score = highScores[i].score
+        scoreItemEl.textContent = name + ": " + score;
+        scorelistEl.appendChild(scoreItemEl);
+    };
+    document.getElementById("view-scores-container").appendChild(scoreItemEl);
+};
+
+function resetHome() {
+    viewScoresContainerEl.innerHTML = "";
+    viewScoresContainerEl.style.display = "none";
+    centerContainerEl.style.display = "inherit";
+    timeLeft = 75;    
+};
