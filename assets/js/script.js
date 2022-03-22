@@ -186,12 +186,12 @@ function viewHighScore() {
     loadScores;
     for (var i = 0; i < Math.min(5, highScores.length); i++) {
         var scoreItemEl = document.createElement("li");
-        var name = highScores[i].name
-        var score = highScores[i].score
+        var name = highScores[i].name;
+        var score = highScores[i].score;
         scoreItemEl.textContent = name + ": " + score;
         scorelistEl.appendChild(scoreItemEl);
+        document.getElementById("view-scores-container").appendChild(scoreItemEl);
     };
-    document.getElementById("view-scores-container").appendChild(scoreItemEl);
 }; 
 
     function resetHome() {
