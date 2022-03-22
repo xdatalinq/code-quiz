@@ -127,11 +127,19 @@ input[type=submit]:hover {
     margin: 10px;
     justify-content: center;
     align-items: center;
+    margin: 0 0 0 40px;
 }
 
-#view-scores-container ol li {
+#view-scores-container ol {
     text-align: center;
     font-size: 24px;
+    margin: 0 0 0 40px;
+}
+
+#view-scores-container li {
+    text-align: center;
+    font-size: 24px;
+    margin-left: 635px;
 }
 
 .homeButton {

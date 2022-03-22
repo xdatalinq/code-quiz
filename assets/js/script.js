@@ -47,11 +47,13 @@ const questions = [
 // Start button, initiates timer and pulls first question
 startButtonEl.addEventListener("click", timerStart);
 
-// View high scores link to click to viewHighScores()
+// View high scores button to click to viewHighScores()
 highScoreLinkEl.addEventListener("click", viewHighScore);
 
 // Countdown Timer
 function timerStart() {
+    questionsEl.style.display = "inherit";
+    questionChoiceEl.style.display = "inherit";
     centerContainerEl.style.display = "none"; 
     getQuestion(0);
     var countDownTimer = setInterval(function() {
@@ -69,8 +71,8 @@ function timerStart() {
 // Function that pulls questions
 function getQuestion(index) {
     if(timeLeft > 0) {
-        document.querySelector("#question-text").textContent = questions[index].question
         questionChoiceEl.innerHTML = "";
+        document.querySelector("#question-text").textContent = questions[index].question
         for (var i = 0; i < questions[index].choices.length; i++) {
             var choice = document.createElement("button");
             choice.setAttribute("class", "option-button");
@@ -108,7 +110,7 @@ function endGame() {
     waitTimer();
 };
 
-// This is a timer to wait 3 seconds before switching sections so users can see last question feedback
+// This is a timer to wait 3 seconds before switching sections so users can see last question's feedback
 function waitTimer() {
     var countDownTimer = setInterval(function() {
         if (timeDelay <= 0){
@@ -124,7 +126,7 @@ function waitTimer() {
 // Change to form section
 function submitScoreSection() {
     questionChoiceEl.style.display = "none";
-    questionsEl.innerHTML = "";
+    document.getElementById("questions").style.display = "none";
     endContainerEl.style.display = "flex";
     document.getElementById("finalScore").textContent = score;
     submitButtonEl.addEventListener("click", submitScore);
@@ -134,7 +136,7 @@ function submitScoreSection() {
 var loadScores = function () {
     highScores = localStorage.getItem("score", highScores);
     highScores = JSON.parse(highScores);
-}
+};
 
 // Turn input value into an object and submit it to localStorage
 function submitScore(event) {
@@ -159,8 +161,6 @@ function submitScore(event) {
 
 // Display loaded scores
 function viewHighScore() {
-    console.log(highScores)
-    console.log("clicked")
     endContainerEl.style.display = "none";
     centerContainerEl.style.display = "none";
     viewScoresContainerEl.innerHTML = "";
@@ -173,12 +173,14 @@ function viewHighScore() {
     document.getElementById("view-scores-container").appendChild(homeButtonEl);
     homeButtonEl.addEventListener("click", resetHome);
 
+    // Create the h1
     var tag = document.createElement("h1");
     var text = document.createTextNode("Name/Score");
     tag.appendChild(text);
     var element = document.getElementById("view-scores-container");
     element.appendChild(tag);
     
+    // Create the score items
     var scorelistEl = document.createElement("ol");
     for (var i = 0; i < Math.min(10, highScores.length); i++) {
         var scoreItemEl = document.createElement("li");
@@ -188,11 +190,13 @@ function viewHighScore() {
         scorelistEl.appendChild(scoreItemEl);
     };
     document.getElementById("view-scores-container").appendChild(scoreItemEl);
-};
+}; 
 
-function resetHome() {
-    viewScoresContainerEl.innerHTML = "";
-    viewScoresContainerEl.style.display = "none";
-    centerContainerEl.style.display = "inherit";
-    timeLeft = 75;    
+    function resetHome() {
+        viewScoresContainerEl.innerHTML = "";
+        viewScoresContainerEl.style.display = "none";
+        centerContainerEl.style.display = "inherit";  
+        timeLeft = 75
+        currentIndex = 0
+        document.getElementById("timer").textContent = timeLeft;
 };
