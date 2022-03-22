@@ -3,7 +3,7 @@ var currentIndex = 0;
 var timeLeft = 75;
 var timeDelay = 3;
 var score = 0;
-var highScores = [];
+var highScores = loadScores();
 var initials = "";
 var startButtonEl = document.querySelector(".startButton");
 var questionsEl = document.querySelector("#questions");
@@ -55,7 +55,8 @@ function timerStart() {
     questionsEl.style.display = "inherit";
     questionChoiceEl.style.display = "inherit";
     centerContainerEl.style.display = "none";
-    answerIncorrectEl.style.display = "none"; 
+    answerIncorrectEl.style.display = "none";
+    
     getQuestion(0);
     var countDownTimer = setInterval(function() {
         if (timeLeft <= 0 || currentIndex === 5){
@@ -134,9 +135,10 @@ function submitScoreSection() {
 };
 
 // Load the scores into variables
-var loadScores = function () {
-    highScores = localStorage.getItem("score", highScores);
+function loadScores() {
+    highScores = localStorage.getItem("score");
     highScores = JSON.parse(highScores);
+    return highScores;
 };
 
 // Turn input value into an object and submit it to localStorage
@@ -146,7 +148,7 @@ function submitScore(event) {
     if (!nameInput) {
         alert("You must enter your initials");
     } else {
-        loadScores;
+        //loadScores;
         var scoreId = highScores.length + 1;
         var scoreObject = {
             name: nameInput,
