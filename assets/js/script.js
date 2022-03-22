@@ -50,7 +50,7 @@ startButtonEl.addEventListener("click", timerStart);
 // View high scores button to click to viewHighScores()
 highScoreLinkEl.addEventListener("click", viewHighScore);
 
-// Countdown Timer
+// Countdown Timer & toggling visual elements on/off
 function timerStart() {
     questionsEl.style.display = "inherit";
     questionChoiceEl.style.display = "inherit";
@@ -177,11 +177,11 @@ function viewHighScore() {
     // Create the h1
     var tag = document.createElement("h1");
     var text = document.createTextNode("Name/Score");
-    tag.appendChild(text);
     var element = document.getElementById("view-scores-container");
+    tag.appendChild(text);
     element.appendChild(tag);
     
-    // Create the score items
+    // Create the score items (5 max)
     var scorelistEl = document.createElement("ol");
     loadScores;
     for (var i = 0; i < Math.min(5, highScores.length); i++) {
@@ -191,14 +191,15 @@ function viewHighScore() {
         scoreItemEl.textContent = name + ": " + score;
         scorelistEl.appendChild(scoreItemEl);
         document.getElementById("view-scores-container").appendChild(scoreItemEl);
-    };
+    }
 }; 
 
-    function resetHome() {
-        timeLeft = 75
-        currentIndex = 0
-        viewScoresContainerEl.innerHTML = "";
-        viewScoresContainerEl.style.display = "none";
-        centerContainerEl.style.display = "inherit";  
-        document.getElementById("timer").textContent = timeLeft;
+// Reset variables, toggle visual elements back to start
+function resetHome() {
+    timeLeft = 75
+    currentIndex = 0
+    viewScoresContainerEl.innerHTML = "";
+    viewScoresContainerEl.style.display = "none";
+    centerContainerEl.style.display = "inherit";  
+    document.getElementById("timer").textContent = timeLeft;
 };
