@@ -1,7 +1,7 @@
 // Global variables
 var currentIndex = 0;
 var timeLeft = 75;
-var timeDelay = 3;
+var timeDelay = 2;
 var score = 0;
 var highScores = loadScores();
 var initials = "";
