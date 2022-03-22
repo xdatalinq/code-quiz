@@ -54,7 +54,8 @@ highScoreLinkEl.addEventListener("click", viewHighScore);
 function timerStart() {
     questionsEl.style.display = "inherit";
     questionChoiceEl.style.display = "inherit";
-    centerContainerEl.style.display = "none"; 
+    centerContainerEl.style.display = "none";
+    answerIncorrectEl.style.display = "none"; 
     getQuestion(0);
     var countDownTimer = setInterval(function() {
         if (timeLeft <= 0 || currentIndex === 5){
@@ -182,7 +183,8 @@ function viewHighScore() {
     
     // Create the score items
     var scorelistEl = document.createElement("ol");
-    for (var i = 0; i < Math.min(10, highScores.length); i++) {
+    loadScores;
+    for (var i = 0; i < Math.min(5, highScores.length); i++) {
         var scoreItemEl = document.createElement("li");
         var name = highScores[i].name
         var score = highScores[i].score
@@ -193,10 +195,10 @@ function viewHighScore() {
 }; 
 
     function resetHome() {
+        timeLeft = 75
+        currentIndex = 0
         viewScoresContainerEl.innerHTML = "";
         viewScoresContainerEl.style.display = "none";
         centerContainerEl.style.display = "inherit";  
-        timeLeft = 75
-        currentIndex = 0
         document.getElementById("timer").textContent = timeLeft;
 };
