@@ -138,8 +138,12 @@ function submitScoreSection() {
 function loadScores() {
     highScores = localStorage.getItem("score");
     highScores = JSON.parse(highScores);
+    if(!highScores) {
+        highScores = [];
+    }
     return highScores;
 };
+
 
 // Turn input value into an object and submit it to localStorage
 function submitScore(event) {
